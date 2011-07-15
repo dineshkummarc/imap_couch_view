@@ -1,0 +1,39 @@
+<h1>Listing emails</h1>
+
+<% form_tag(imap_index_path, {:method => :get, :id => :email}) do %>
+  <%= text_field_tag :q, {}, { :tabindex => 1, :value => h(@q) } %>
+  <%= submit_tag('Search for exactly this e-mail address') %>
+<% end %>
+
+<br />
+
+<div><strong><%= will_paginate @emails %></strong></div>
+
+<br />
+
+<table class="emails">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Subject</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @emails.each do |email| %>
+      <tr>
+        <td class="nobr"><%= email[:status].humanize %></td>
+        <td class="nobr"><%= email[:name] %></td>
+        <td class="nobr"><%= format_datetime(email[:date]) %></td>
+        <td><%= link_to(email[:subject],
+                        :controller => 'imap_view',
+                        :action => 'show',
+                        :page => params[:page],
+                        :q => params[:q],
+                        :id => email[:id]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

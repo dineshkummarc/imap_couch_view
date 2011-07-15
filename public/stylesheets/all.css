@@ -1,0 +1,16 @@
+iframe { border: none; }
+
+td.nobr { white-space: nowrap; }
+
+div.pre {white-space: pre-wrap; }
+
+table.emails { width: 100%; }
+table.emails td { padding: 0.2em; }
+
+div.box {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 10px;
+}

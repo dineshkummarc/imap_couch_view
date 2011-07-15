@@ -1,0 +1,44 @@
+<%= link_to "< back", imap_index_path({:q => params[:q],
+                                      :page => params[:page]}) %>
+
+<h1>Displaying E-Mail</h1>
+
+<div id="header" class="box">
+  <table width="100%" border="1">
+    <tbody>
+        <tr><td>ID</td><td><%= @doc['_id'] %></td></tr>
+        <% unless @doc['from'].blank? %>
+          <tr><td>From</td><td><%=raw link_email_array(@doc['from']) %></td></tr>
+        <% end %>
+        <% unless @doc['to'].blank? %>
+          <tr><td>To</td><td><%=raw link_email_array(@doc['to']) %></td></tr>
+        <% end %>
+        <% unless @doc['cc'].blank? %>
+          <tr><td>Cc</td><td><%= show_val(@doc['cc']) %></td></tr>
+        <% end %>
+        <% unless @doc['bcc'].blank? %>
+          <tr><td>Bcc</td><td><%= show_val(@doc['bcc']) %></td></tr>
+        <% end %>
+        <% unless @doc['sender'].blank? %>
+          <tr><td>Sender</td><td><%= show_val(@doc['sender']) %></td></tr>
+        <% end %>
+        <% unless @doc['date'].blank? %>
+          <tr><td>Date</td><td><%= @doc['date'] %></td></tr>
+        <% end %>
+        <% unless @doc['subject'].blank? %>
+          <tr><td>Subject</td><td><%= @doc['subject'] %></td></tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% unless @doc['body'].blank? %>
+  <div id="plain" class="box pre"><%= @doc['body'] %></div>
+<% end %>
+
+<% unless @doc['html_body'].blank? %>
+  <div id="html" class="box">
+    <%= content_tag :iframe, :width => '100%', :height => '800px',
+      :src => "#{@html_src}" do -%><% end %>
+</div>
+<% end %>
